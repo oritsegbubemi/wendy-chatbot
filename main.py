@@ -1,5 +1,3 @@
 #import chatbot
 
-import nltkfile
-
-
+import classifier
