@@ -45,25 +45,28 @@ X_train, X_test, y_train, y_test = train_test_split(X_vector, labels, test_size=
 
 classifier = SVC(C=100, gamma=0.1, kernel='linear', probability=True)
 classifier.fit(X_train, y_train)
+
+# saving model to a pickel file
 filename = 'pickle_model.pkl'
-pickle.dump(classifier, open(filename, 'wb'))
+with open(filename, 'wb') as file:  
+    pickle.dump(classifier, file)
 
-# load the model from disk
-loaded_model = pickle.load(open(filename, 'rb'))
+################################################################################4
+#TESTING THE MODEL THE MODEL
+with open(filename, 'rb') as file:  
+    loaded_model = pickle.load(file)
+score = loaded_model.score(X_test, y_test)  
 predictions = loaded_model.predict(X_test)
-print(confusion_matrix(y_test,predictions))
-print(classification_report(y_test,predictions))
+#print(score)
+#print(predictions)
+#print(confusion_matrix(y_test,predictions))
+#print(classification_report(y_test,predictions))
 
 
+################################################################################4
+#USING THE MODEL THE MODEL
+test_question = ["Do you feel loved in your company?"]
+test_question_transform = vectorizer.transform(test_question)
+result = loaded_model.predict(test_question_transform)
+print(result)
 
-
-###############
-# Gridsearch
-# param_grid = {'C': [0.1,1, 10, 100, 1000], 'gamma': [1,0.1,0.01,0.001,0.0001], 'kernel': ['rbf']} 
-# from sklearn.model_selection import GridSearchCV
-# grid = GridSearchCV(SVC(),param_grid,refit=True,verbose=3)
-# grid.fit(X_train,y_train)
-# print("The Best: ", grid.best_estimator_)
-# grid_predictions = grid.predict(X_test)
-# print(confusion_matrix(y_test,grid_predictions))
-# print(classification_report(y_test,grid_predictions))
