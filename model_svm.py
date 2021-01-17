@@ -47,7 +47,7 @@ classifier = SVC(C=100, gamma=0.1, kernel='linear', probability=True)
 classifier.fit(X_train, y_train)
 
 # saving model to a pickel file
-filename = 'pickle_model.pkl'
+filename = 'classifier_model.pkl'
 with open(filename, 'wb') as file:  
     pickle.dump(classifier, file)
 
