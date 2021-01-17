@@ -51,11 +51,17 @@ filename = 'pickle_model.pkl'
 with open(filename, 'wb') as file:  
     pickle.dump(classifier, file)
 
-
+filename1 = 'vectorizer_model.pkl'
+with open(filename1, 'wb') as file:  
+    pickle.dump(vectorizer, file)
 ################################################################################4
-#TESTING THE MODEL THE MODEL
+#TESTING THE MODEL
 with open(filename, 'rb') as file:  
     loaded_model = pickle.load(file)
+
+with open(filename1, 'rb') as file:  
+    loaded_vectorize = pickle.load(file)
+    
 # score = loaded_model.score(X_test, y_test)  
 # predictions = loaded_model.predict(X_test)
 #print(score)
@@ -67,7 +73,7 @@ with open(filename, 'rb') as file:
 ################################################################################4
 #USING THE MODEL THE MODEL
 def survey_question(question):
-    test_question_transform = vectorizer.transform(question)
+    test_question_transform = loaded_vectorize.transform(question)
     result = loaded_model.predict(test_question_transform)
-    options = {"LIKERT" : ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"], "YN" : ["Yes", "No"]}
-    return options[result[0]]
+    option = {"LIKERT" : ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"], "YN" : ["Yes", "No"]}
+    return option[result[0]]
