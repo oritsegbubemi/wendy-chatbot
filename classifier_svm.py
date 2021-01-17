@@ -51,12 +51,13 @@ filename = 'pickle_model.pkl'
 with open(filename, 'wb') as file:  
     pickle.dump(classifier, file)
 
+
 ################################################################################4
 #TESTING THE MODEL THE MODEL
 with open(filename, 'rb') as file:  
     loaded_model = pickle.load(file)
-score = loaded_model.score(X_test, y_test)  
-predictions = loaded_model.predict(X_test)
+# score = loaded_model.score(X_test, y_test)  
+# predictions = loaded_model.predict(X_test)
 #print(score)
 #print(predictions)
 #print(confusion_matrix(y_test,predictions))
@@ -65,8 +66,8 @@ predictions = loaded_model.predict(X_test)
 
 ################################################################################4
 #USING THE MODEL THE MODEL
-test_question = ["Do you feel loved in your company?"]
-test_question_transform = vectorizer.transform(test_question)
-result = loaded_model.predict(test_question_transform)
-print(result)
-
+def survey_question(question):
+    test_question_transform = vectorizer.transform(question)
+    result = loaded_model.predict(test_question_transform)
+    options = {"LIKERT" : ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"], "YN" : ["Yes", "No"]}
+    return options[result[0]]
