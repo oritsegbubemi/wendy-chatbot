@@ -1,18 +1,18 @@
 import pickle
-from model_svm import survey_question
+from model import tokenize
 
+classifier_file = 'classifier_model.pkl'
+with open(classifier_file, 'rb') as file:  
+    loaded_classifier = pickle.load(file)
 
-# with open('vectorizer_model.pkl', 'rb') as file:  
-#     loaded_vectorizer = pickle.load(file)
+vectorizer_file = 'vectorizer_model.pkl'
+with open(vectorizer_file, 'rb') as file:  
+    loaded_vectorize = pickle.load(file)
 
-# with open('classifier_model.pkl', 'rb') as file:  
-#     classifier = pickle.load(file)
+def survey_question(question):
+    test_question_transform = loaded_vectorize.transform(question)
+    result = loaded_classifier.predict(test_question_transform)
+    option = {"LIKERT" : ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"], "YN" : ["Yes", "No"]}
+    return option[result[0]]
 
-
-# def survey_question(question):
-#     test_question_transform = loaded_vectorizer.transform(question)
-#     result = classifier.predict(test_question_transform)
-#     option = {"LIKERT" : ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"], "YN" : ["Yes", "No"]}
-#     return option[result[0]]
-
-print(survey_question(["Do you understand you daily tasks?"]))
+print(survey_question(["I feel valued at my company"]))
