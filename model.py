@@ -15,7 +15,7 @@ from sklearn.metrics import classification_report,confusion_matrix, accuracy_sco
 
 ###############################################################################2
 #LOAD SURVEY DATASET
-file_name = 'survey_questions.csv'
+file_name = 'dataset/survey_questions.csv'
 dataset = pd.read_csv(file_name)
 questions = dataset['Questions']
 labels = dataset['Options']
@@ -46,15 +46,17 @@ def build_model():
     X_train, X_test, y_train, y_test = train_test_split(X_vector, labels, test_size=0.20, random_state=101)
     classifier = SVC(C=100, gamma=0.1, kernel='linear', probability=True)
     classifier.fit(X_train, y_train)
+
+
     predictions = classifier.predict(X_test)
-    #print(accuracy_score(y_test, predictions)
+    #print(accuracy_score(y_test, predictions))
     #print(confusion_matrix(y_test,predictions))
     #print(classification_report(y_test,predictions))
 
-    with open('vectorizer_model.pkl', 'wb') as file:  
+    with open('model/vectorizer_model.pkl', 'wb') as file:  
         pickle.dump(vectorizer, file)
 
-    with open('classifier_model.pkl', 'wb') as file:  
+    with open('model/classifier_model.pkl', 'wb') as file:  
         pickle.dump(classifier, file)
 
 build_model()

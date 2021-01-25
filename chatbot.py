@@ -1,11 +1,11 @@
 import pickle
 from model import tokenize
 
-classifier_file = 'classifier_model.pkl'
+classifier_file = 'model/classifier_model.pkl'
 with open(classifier_file, 'rb') as file:  
     loaded_classifier = pickle.load(file)
 
-vectorizer_file = 'vectorizer_model.pkl'
+vectorizer_file = 'model/vectorizer_model.pkl'
 with open(vectorizer_file, 'rb') as file:  
     loaded_vectorize = pickle.load(file)
 
