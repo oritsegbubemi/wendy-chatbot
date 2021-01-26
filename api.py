@@ -1,4 +1,3 @@
-
 import os
 import pickle
 from flask import Flask, jsonify, request
@@ -20,13 +19,10 @@ class MakePrediction(Resource):
     @staticmethod
     def post():
         posted_data = request.get_json()
-        print(posted_data)
         survey_question = posted_data['survey_question']
-        
         survey_question = vectorizer.transform([survey_question])
-        print(survey_question)
-
         prediction = classifier.predict(survey_question)
+        
         if prediction == 'LIKERT':
             predicted_class = ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"]
         elif prediction == 'YN':
