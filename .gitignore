@@ -130,4 +130,6 @@ dmypy.json
 
 #IDE metadata
 **.idea/**
-**.vscode/**
+
+#VS code
+.vscode/
